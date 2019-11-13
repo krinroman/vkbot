@@ -12,6 +12,7 @@
 </head>
 <body>
     <h1>Testing page</h1>
-    <a href="/send-post?key=confirmation">Отправить POST запрос Confirmation</a>
+    <a href="/send-post?key=confirmation">Отправить POST запрос Confirmation</a></br>
+    <a href="/test">Test</a>
 </body>
 </html>

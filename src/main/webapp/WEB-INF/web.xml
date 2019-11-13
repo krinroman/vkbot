@@ -20,5 +20,13 @@
         <servlet-name>SendPostJSONTest</servlet-name>
         <url-pattern>/send-post</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Test</servlet-name>
+        <servlet-class>com.krinroman.vkbot.servlet.TestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Test</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
 
 </web-app>

@@ -6,6 +6,7 @@ import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.objects.photos.Photo;
 import com.vk.api.sdk.objects.photos.PhotoUpload;
+import com.vk.api.sdk.objects.photos.responses.MessageUploadResponse;
 import com.vk.api.sdk.objects.photos.responses.WallUploadResponse;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,9 +18,9 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.json.JSONObject;
 
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,11 +43,10 @@ public class Post {
     }
 
     public static String SendImagePostVK(VkApiClient vk, GroupActor actor, String url) {
-
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         File file = null;
-        file = new File(url);
         try {
+            file = new File(url);
             builder.addBinaryBody(
                     "file",
                     new FileInputStream(file),
@@ -60,7 +60,7 @@ public class Post {
         }
         try {
             PhotoUpload serverResponse = vk.photos().getMessagesUploadServer(actor).execute();
-            WallUploadResponse uploadResponse = vk.upload().photoWall(serverResponse.getUploadUrl(), file).execute();
+            MessageUploadResponse uploadResponse = vk.upload().photoMessage(serverResponse.toString(),file).execute();
             List<Photo> photoList = vk.photos().saveMessagesPhoto(actor, uploadResponse.getPhoto())
                     .server(uploadResponse.getServer())
                     .hash(uploadResponse.getHash()).execute();
