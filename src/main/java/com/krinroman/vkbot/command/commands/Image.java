@@ -11,7 +11,12 @@ public class Image extends Command {
 
     @Override
     public void exec(int peerId, String message) {
-        new VKManager().sendImage("Это случайное изображение",
-                "https://cdn.wallpapersafari.com/63/90/tgQFmO.jpg",peerId);
+        try {
+            new VKManager().sendImage("Это случайное изображение",
+                    "https://cdn.wallpapersafari.com/63/90/tgQFmO.jpg", peerId);
+        }
+        catch (Exception e){
+            new VKManager().sendMessage("Не удалось отправить изображение", peerId);
+        }
     }
 }
