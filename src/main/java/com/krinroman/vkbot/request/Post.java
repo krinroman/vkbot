@@ -42,35 +42,23 @@ public class Post {
         return null;
     }
 
-    public static String SendImagePostVK(VkApiClient vk, GroupActor actor, String url) {
+    public static String SendImagePostVK(VkApiClient vk, GroupActor actor, String url) throws FileNotFoundException, ClientException, ApiException {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        File file = null;
-        try {
-            file = new File(url);
+
+        File file = new File(url);
             builder.addBinaryBody(
                     "file",
                     new FileInputStream(file),
                     ContentType.MULTIPART_FORM_DATA,
                     file.getName()
             );
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Не удалось открыть изображение");
-            return null;
-        }
-        try {
-            PhotoUpload serverResponse = vk.photos().getMessagesUploadServer(actor).execute();
-            MessageUploadResponse uploadResponse = vk.upload().photoMessage(serverResponse.toString(),file).execute();
-            List<Photo> photoList = vk.photos().saveMessagesPhoto(actor, uploadResponse.getPhoto())
-                    .server(uploadResponse.getServer())
-                    .hash(uploadResponse.getHash()).execute();
-            Photo photo = photoList.get(0);
-            return "photo" + photo.getOwnerId() + "_" + photo.getId();
-        } catch (ApiException e) {
-            e.printStackTrace();
-        } catch (ClientException e) {
-            e.printStackTrace();
-        }
-        return null;
+
+        PhotoUpload serverResponse = vk.photos().getMessagesUploadServer(actor).execute();
+        MessageUploadResponse uploadResponse = vk.upload().photoMessage(serverResponse.toString(),file).execute();
+        List<Photo> photoList = vk.photos().saveMessagesPhoto(actor, uploadResponse.getPhoto())
+                .server(uploadResponse.getServer())
+                .hash(uploadResponse.getHash()).execute();
+        Photo photo = photoList.get(0);
+        return "photo" + photo.getOwnerId() + "_" + photo.getId();
     }
 }

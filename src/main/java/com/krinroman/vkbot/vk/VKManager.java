@@ -4,6 +4,8 @@ import com.krinroman.vkbot.request.Post;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 
+import java.io.FileNotFoundException;
+
 public class VKManager {
 
 
@@ -30,13 +32,8 @@ public class VKManager {
         }
     }
 
-    public void sendImage(String msg, String url, int peerId) throws ClientException, ApiException {
+    public void sendImage(String msg, String url, int peerId) throws ClientException, ApiException, FileNotFoundException {
         String attachmentId = Post.SendImagePostVK(vkCore.getVk(),vkCore.getActor(),url);
-        if(attachmentId == null) {
-            System.out.println("null");
-            return;
-        }
-            vkCore.getVk().messages().send(vkCore.getActor()).peerId(peerId).attachment(attachmentId).message(msg).execute();
-
+        vkCore.getVk().messages().send(vkCore.getActor()).peerId(peerId).attachment(attachmentId).message(msg).execute();
     }
 }

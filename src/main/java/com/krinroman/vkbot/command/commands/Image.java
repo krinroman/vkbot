@@ -5,6 +5,8 @@ import com.krinroman.vkbot.vk.VKManager;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 
+import java.io.FileNotFoundException;
+
 public class Image extends Command {
 
     public Image(String name) {
@@ -16,9 +18,10 @@ public class Image extends Command {
         try {
             new VKManager().sendImage("Это случайное изображение",
                     "https://cdn.wallpapersafari.com/63/90/tgQFmO.jpg", peerId);
+        } catch (ApiException | FileNotFoundException | ClientException e) {
+            e.printStackTrace();
+            new VKManager().sendMessage("Не удалось отправить изображение",peerId);
         }
-        catch (Exception e) {
-            new VKManager().sendMessage("Не удалось отправить изображение", peerId);
-        }
+
     }
 }
