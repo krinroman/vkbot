@@ -11,6 +11,6 @@ public class Image extends Command {
 
     @Override
     public void exec(int peerId, String message) {
-        new VKManager().sendMessage("Здесь должна быть картинка",peerId);
+        new VKManager().sendImage(message,"https://lorempixel.com/1280/720/",peerId);
     }
 }
