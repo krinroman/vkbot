@@ -11,7 +11,7 @@
     <title>Index</title>
 </head>
 <body>
-    <h1>Test</h1>
+    <h1>Testing page</h1>
     <a href="/send-post?key=confirmation">Отправить POST запрос Confirmation</a>
 </body>
 </html>
