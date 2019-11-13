@@ -46,12 +46,12 @@ public class Post {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
         File file = new File(url);
-            builder.addBinaryBody(
-                    "file",
-                    new FileInputStream(file),
-                    ContentType.MULTIPART_FORM_DATA,
-                    file.getName()
-            );
+//            builder.addBinaryBody(
+//                    "file",
+//                    new FileInputStream(file),
+//                    ContentType.MULTIPART_FORM_DATA,
+//                    file.getName()
+//            );
 
         PhotoUpload serverResponse = vk.photos().getMessagesUploadServer(actor).execute();
         MessageUploadResponse uploadResponse = vk.upload().photoMessage(serverResponse.toString(),file).execute();
