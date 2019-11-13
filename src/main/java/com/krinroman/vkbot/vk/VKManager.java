@@ -30,18 +30,13 @@ public class VKManager {
         }
     }
 
-    public void sendImage(String msg, String url, int peerId){
+    public void sendImage(String msg, String url, int peerId) throws ClientException, ApiException {
         String attachmentId = Post.SendImagePostVK(vkCore.getVk(),vkCore.getActor(),url);
         if(attachmentId == null) {
             System.out.println("null");
             return;
         }
-        try {
             vkCore.getVk().messages().send(vkCore.getActor()).peerId(peerId).attachment(attachmentId).message(msg).execute();
-        } catch (ApiException e) {
-            e.printStackTrace();
-        } catch (ClientException e) {
-            e.printStackTrace();
-        }
+
     }
 }
