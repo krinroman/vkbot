@@ -5,6 +5,8 @@ import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 public class VKManager {
 
@@ -32,7 +34,7 @@ public class VKManager {
         }
     }
 
-    public void sendImage(String msg, String url, int peerId) throws ClientException, ApiException, FileNotFoundException {
+    public void sendImage(String msg, String url, int peerId) throws ClientException, ApiException, IOException {
         String attachmentId = Post.SendImagePostVK(vkCore.getVk(),vkCore.getActor(),url);
         vkCore.getVk().messages().send(vkCore.getActor()).peerId(peerId).attachment(attachmentId).message(msg).execute();
     }

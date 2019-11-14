@@ -6,6 +6,8 @@ import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 public class Image extends Command {
 
@@ -17,8 +19,8 @@ public class Image extends Command {
     public void exec(int peerId, String message) {
         try {
             new VKManager().sendImage("Это случайное изображение",
-                    "https://cdn.wallpapersafari.com/63/90/tgQFmO.jpg", peerId);
-        } catch (ApiException | FileNotFoundException | ClientException e) {
+                    "https://million-wallpapers.ru/wallpapers/0/28/291762809215698/tixij-tigr.jpg", peerId);
+        } catch (ApiException | ClientException | IOException e) {
             e.printStackTrace();
             new VKManager().sendMessage("Не удалось отправить изображение",peerId);
         }
