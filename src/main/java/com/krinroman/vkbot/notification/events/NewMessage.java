@@ -16,12 +16,12 @@ public class NewMessage extends Event {
     public String exec(JSONHandler json) {
         int peerId = json.getVkObject().getInt("peer_id");
         String msg = json.getVkObject().getString("text");
-        String tmp = msg.split(" ")[0].toLowerCase();
-        if(CommandManager.getCommandsList().contains(tmp))
-            CommandDeterminate.getCommand(CommandManager.getCommands(),tmp).exec(peerId,msg);
+        String cmd = msg.split(" ")[0].toLowerCase();
+        if(CommandManager.getCommandsList().contains(cmd))
+            CommandDeterminate.getCommand(CommandManager.getCommands(),cmd).exec(peerId,msg);
         else{
-            tmp=CommandDeterminate.StringToCommandString(tmp);
-            if(tmp != null) CommandDeterminate.getCommand(CommandManager.getCommands(),tmp).exec(peerId,msg);
+            cmd=CommandDeterminate.StringToCommandString(msg.trim());
+            if(cmd != null) CommandDeterminate.getCommand(CommandManager.getCommands(),cmd).exec(peerId,msg);
             else new VKManager().sendMessage(MessageParser.ParseMessage(msg),peerId);
         }
         return System.getenv("responseStringDefault");
