@@ -20,7 +20,8 @@ public class NewMessage extends Event {
         if(CommandManager.getCommandsList().contains(cmd))
             CommandDeterminate.getCommand(CommandManager.getCommands(),cmd).exec(peerId,msg);
         else{
-            cmd=CommandDeterminate.StringToCommandString(msg.trim());
+            cmd=CommandDeterminate.StringToCommandString(cmd);
+            if(cmd == null) cmd=CommandDeterminate.StringToCommandString(msg.trim());
             if(cmd != null) CommandDeterminate.getCommand(CommandManager.getCommands(),cmd).exec(peerId,msg);
             else new VKManager().sendMessage(MessageParser.ParseMessage(msg),peerId);
         }
