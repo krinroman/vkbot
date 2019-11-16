@@ -35,24 +35,16 @@ public class HTMLParser {
         text.replace(" ","%20");
         Document doc = Jsoup.connect("https://yandex.ru/images/search?text="+ text +"&itype=jpg").get();
         Elements elements = doc.select("a.serp-item__link");
-        System.out.println(elements.size());
-        for(Element element:elements){
-            System.out.println(element);
-        }
+        if (elements.size() <= 0) throw new IOException("Не удалось получить доступ к серверу картинок");
         Random rnd = new Random();
         int i = rnd.nextInt(elements.size());
         String url = elements.get(i).attr("href");
         int index = 0;
-        System.out.println(url);
         index = url.indexOf("img_url=");
         url = url.substring(index+8);
-        System.out.println(url);
         index = url.indexOf("&");
         url = url.substring(0,index);
-        System.out.println(url);
         url = url.replace("%2F","/").replace("%3A",":");
-        System.out.println(url);
         return url;
-
     }
 }
