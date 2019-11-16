@@ -30,6 +30,7 @@ public class HTMLParser {
     }
 
     public static String getUrlImageRandomYandex(String text) throws IOException {
+        System.out.println("Запрос на картинку: "text);
         text = text.trim();
         text.replace(" ","%20");
         Document doc = Jsoup.connect("https://yandex.ru/images/search?text="+ text +"&itype=jpg").get();
