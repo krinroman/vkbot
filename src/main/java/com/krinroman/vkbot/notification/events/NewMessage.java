@@ -2,10 +2,14 @@ package com.krinroman.vkbot.notification.events;
 
 import com.krinroman.vkbot.command.CommandDeterminate;
 import com.krinroman.vkbot.command.CommandManager;
+import com.krinroman.vkbot.command.Commander;
 import com.krinroman.vkbot.json.JSONHandler;
 import com.krinroman.vkbot.notification.Event;
 import com.krinroman.vkbot.vk.VKManager;
 import com.krinroman.vkbot.parse.MessageParser;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class NewMessage extends Event {
     public NewMessage(String name) {
@@ -16,15 +20,8 @@ public class NewMessage extends Event {
     public String exec(JSONHandler json) {
         int peerId = json.getVkObject().getInt("peer_id");
         String msg = json.getVkObject().getString("text");
-        String cmd = msg.split(" ")[0].toLowerCase();
-        if(CommandManager.getCommandsList().contains(cmd))
-            CommandDeterminate.getCommand(CommandManager.getCommands(),cmd).exec(peerId,msg);
-        else{
-            cmd=CommandDeterminate.StringToCommandString(cmd);
-            if(cmd == null) cmd=CommandDeterminate.StringToCommandString(msg.trim());
-            if(cmd != null) CommandDeterminate.getCommand(CommandManager.getCommands(),cmd).exec(peerId,msg);
-            else new VKManager().sendMessage(MessageParser.ParseMessage(msg),peerId);
-        }
+        ExecutorService exec = Executors.newCachedThreadPool();
+        exec.execute(new Commander(msg,peerId));
         return System.getenv("responseStringDefault");
     }
 }
