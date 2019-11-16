@@ -1,5 +1,6 @@
 package com.krinroman.vkbot.command;
 
+import com.krinroman.vkbot.command.commands.Help;
 import com.krinroman.vkbot.command.commands.Image;
 import com.krinroman.vkbot.command.commands.Weather;
 
@@ -12,6 +13,7 @@ public class CommandManager {
     static {
         commandsList.add("weather");
         commandsList.add("image");
+        commandsList.add("help");
     }
 
     public static List<String> getCommandsList() { return commandsList; }
@@ -20,6 +22,7 @@ public class CommandManager {
         HashSet<Command> commands = new HashSet<>();
         commands.add(new Weather("weather"));
         commands.add(new Image("image"));
+        commands.add(new Help("help"));
         return commands;
     }
 }
