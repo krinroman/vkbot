@@ -34,6 +34,7 @@ public class HTMLParser {
         text = text.trim();
         text.replace(" ","%20");
         Document doc = Jsoup.connect("https://yandex.ru/images/search?text="+ text +"&itype=jpg").get();
+        System.out.println(doc);
         Elements elements = doc.select("a.serp-item__link");
         if (elements.size() <= 0) throw new IOException("Не удалось получить доступ к серверу картинок");
         Random rnd = new Random();
