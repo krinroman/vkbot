@@ -22,6 +22,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -51,10 +52,61 @@ public class Post {
     }
 
     public static String SendImagePostVK(VkApiClient vk, GroupActor actor, String urlImage) throws IOException, ClientException, ApiException {
+        //Получаем картинку из интернета
+        MultipartEntityBuilder builder = getMultipartEntityBuilder(getBinaryCodePage(urlImage));
+        //Получаем адрес куда требуется отправить картинку
+        PhotoUpload serverResponse = vk.photos().getMessagesUploadServer(actor).execute();
+        //Отправляем картинку и получаем ответ от сервера
+        String response = SendImagePost(serverResponse.getUploadUrl(),builder);
+        //Обработка запроса
+        JSONObject json = new JSONObject(response);
 
-        System.out.println("Метод отправки загружен");
-        URL url = new URL(urlImage);
-        URLConnection urlConnection = url.openConnection();
+        List<Photo> photoList = vk.photos().saveMessagesPhoto(actor,json.getString("photo"))
+                .server(json.getInt("server"))
+                .hash(json.getString("hash")).execute();
+        Photo photo = photoList.get(0);
+        return "photo" + photo.getOwnerId() + "_" + photo.getId();
+    }
+
+    public static String SendImagePostVK(VkApiClient vk, GroupActor actor, File file) throws ClientException, ApiException, IOException {
+        //Получаем картинку из файла
+        MultipartEntityBuilder builder = getMultipartEntityBuilder(file);
+        //Получаем адрес куда требуется отправить картинку
+        PhotoUpload serverResponse = vk.photos().getMessagesUploadServer(actor).execute();
+        //Отправляем картинку и получаем ответ от сервера
+        String response = SendImagePost(serverResponse.getUploadUrl(),builder);
+        //Обработка запроса
+        JSONObject json = new JSONObject(response);
+
+        List<Photo> photoList = vk.photos().saveMessagesPhoto(actor,json.getString("photo"))
+                .server(json.getInt("server"))
+                .hash(json.getString("hash")).execute();
+        Photo photo = photoList.get(0);
+        return "photo" + photo.getOwnerId() + "_" + photo.getId();
+    }
+
+    private static String SendImagePost(String urlUpload, MultipartEntityBuilder multipartEntityBuilder) throws IOException {
+        HttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(urlUpload);
+
+        httpPost.setEntity(multipartEntityBuilder.build());
+
+        HttpResponse httpResponse = httpClient.execute(httpPost);
+        HttpEntity entity = httpResponse.getEntity();
+
+        String response = null;
+        if (entity != null) {
+            InputStream inputStream = entity.getContent();
+            Scanner scan = new Scanner(inputStream);
+            response = scan.nextLine();
+            return response;
+        }
+        return null;
+    }
+
+    public static byte [] getBinaryCodePage(String url) throws IOException {
+        URL urlT = new URL(url);
+        URLConnection urlConnection = urlT.openConnection();
         urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64;rv:52.0) Gecko/20100101 Firefox/52.0");
         InputStream in = new BufferedInputStream(urlConnection.getInputStream());
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -67,15 +119,18 @@ public class Post {
         out.close();
         in.close();
         byte[] data = out.toByteArray();
+        return data;
+    }
 
-//        FileOutputStream fos = new FileOutputStream("C:\\Users\\rkrin\\Desktop\\IdeaProjects\\vkbot\\image.jpg");
-//        fos.write(data);
-//        fos.close();
-//
-//        File file = new File("C:\\Users\\rkrin\\Desktop\\IdeaProjects\\vkbot\\image.jpg");
+    public static byte [] getBinaryCodePage(String url, String pathFile) throws IOException {
+        byte [] data = getBinaryCodePage(url);
+        FileOutputStream fos = new FileOutputStream(pathFile);
+        fos.write(data);
+        fos.close();
+        return data;
+    }
 
-        PhotoUpload serverResponse = vk.photos().getMessagesUploadServer(actor).execute();
-
+    private static MultipartEntityBuilder getMultipartEntityBuilder(byte [] data){
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
         builder.setContentType(ContentType.MULTIPART_FORM_DATA);
@@ -83,31 +138,16 @@ public class Post {
         builder.setBoundary(UUID.randomUUID().toString());
         ContentBody cd = new InputStreamBody(new ByteArrayInputStream(data), "image.jpg");
         builder.addPart("file", cd);
+        return builder;
+    }
 
-        HttpClient httpClient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(serverResponse.getUploadUrl());
+    private static MultipartEntityBuilder getMultipartEntityBuilder(File file){
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
-
-        httpPost.setEntity(builder.build());
-
-        HttpResponse httpResponse = httpClient.execute(httpPost);
-        HttpEntity entity = httpResponse.getEntity();
-
-        String response = null;
-        if (entity != null) {
-            InputStream inputStream = entity.getContent();
-            Scanner scan = new Scanner(inputStream);
-            response = scan.nextLine();
-            System.out.println(response);
-        }
-        else return null;
-
-        JSONObject json = new JSONObject(response);
-
-        List<Photo> photoList = vk.photos().saveMessagesPhoto(actor,json.getString("photo"))
-                .server(json.getInt("server"))
-                .hash(json.getString("hash")).execute();
-        Photo photo = photoList.get(0);
-        return "photo" + photo.getOwnerId() + "_" + photo.getId();
+        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
+        builder.setCharset(Charset.forName("UTF-8"));
+        builder.setBoundary(UUID.randomUUID().toString());
+        builder.addBinaryBody("file", file);
+        return builder;
     }
 }
