@@ -60,7 +60,7 @@ public class Post {
         String response = SendImagePost(serverResponse.getUploadUrl(),builder);
         //Обработка запроса
         JSONObject json = new JSONObject(response);
-
+        System.out.println("Ответ сервера: " + json.toString());
         List<Photo> photoList = vk.photos().saveMessagesPhoto(actor,json.getString("photo"))
                 .server(json.getInt("server"))
                 .hash(json.getString("hash")).execute();
