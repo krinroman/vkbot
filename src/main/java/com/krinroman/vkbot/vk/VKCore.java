@@ -15,8 +15,7 @@ public class VKCore {
     public VKCore() throws ClientException, ApiException {
         TransportClient transportClient = HttpTransportClient.getInstance();
         vk = new VkApiClient(transportClient);
-        //actor = new GroupActor(Integer.parseInt(System.getenv("groupId")), System.getenv("accessToken"));
-        actor = new GroupActor(Integer.parseInt("188437919"), "0e9e3ce3430be168d178d0e5835df4a2986ba14a53c3677148875cdeb36d320061d3428f37677f5c02785");
+        actor = new GroupActor(Integer.parseInt(System.getenv("groupId")), System.getenv("accessToken"));
     }
 
     public VkApiClient getVk() {

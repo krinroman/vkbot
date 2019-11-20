@@ -27,7 +27,7 @@ public class CallbackVK extends javax.servlet.http.HttpServlet {
             reader.close();
 
         } catch (Exception e) {
-            System.out.println("Проиизошла ошибка в получении данных");
+            System.out.println("Произошла ошибка в получении данных");
             return;
         }
         System.out.println("Получен запрос:\n"+ stringBuffer.toString());
