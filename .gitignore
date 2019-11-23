@@ -1,4 +1,5 @@
 /.idea
 /target
 /vkbot.iml
+/vk-bot.iml
 /src/main/java/servlet/TestServlet.java
