@@ -21,6 +21,7 @@ public class MyPDFParser {
     }
 
     public static void ParseToText(String filename) throws IOException {
+
         PdfReader reader = new PdfReader(filename);
         FileWriter writer = new FileWriter("pdf.txt", false);
         // не забываем, что нумерация страниц в PDF начинается с единицы.
