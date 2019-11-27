@@ -5,7 +5,6 @@ import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
 import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
 import com.krinroman.vkbot.parse.pdf.schedule.*;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -103,7 +102,7 @@ public class MyPDFParser {
                 days[i] = new Day(ParseListLessons(stringLessons),
                         weekDays[i],
                         new Date(stringDate,"."));
-            } catch (InvalidArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }

@@ -1,46 +1,45 @@
 package com.krinroman.vkbot.parse.pdf.schedule;
 
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 public class Time {
     private int hour;
     private int minute;
     private int second;
 
-    public Time(int hour, int minute, int second) throws InvalidFormatException {
+    public Time(int hour, int minute, int second) throws IllegalArgumentException {
         if(hour > 24 || hour < 0)
-            throw new InvalidFormatException("Неверное указание колличества часов");
+            throw new IllegalArgumentException("Неверное указание колличества часов");
         if(minute > 59 || minute < 0)
-            throw new InvalidFormatException("Неверное указание колличества минут");
+            throw new IllegalArgumentException("Неверное указание колличества минут");
         if(second > 59 || second < 0)
-            throw new InvalidFormatException("Неверное указание колличества секунд");
+            throw new IllegalArgumentException("Неверное указание колличества секунд");
         this.hour = hour;
         this.minute = minute;
         this.second = second;
     }
 
-    public Time(String string, String separator) throws InvalidFormatException {
+    public Time(String string, String separator) throws IllegalArgumentException {
         if(separator.length() == 0)
-            throw new InvalidFormatException("Разделитель не может быть пустой");
+            throw new IllegalArgumentException("Разделитель не может быть пустой");
         String[] args = string.split(separator);
         if(args.length < 2 || args.length > 3)
-            throw new InvalidFormatException("Неверный формат строки");
+            throw new IllegalArgumentException("Неверный формат строки");
         int temp;
         temp = Integer.parseInt(args[0]);
         if(temp > 24 || temp < 0)
-            throw new InvalidFormatException("Неверное указание колличества часов");
+            throw new IllegalArgumentException("Неверное указание колличества часов");
         hour = temp;
 
         temp = Integer.parseInt(args[1]);
         if(temp > 60 || temp < 0)
-            throw new InvalidFormatException("Неверное указание колличества минут");
+            throw new IllegalArgumentException("Неверное указание колличества минут");
         minute = temp;
 
         if(args.length == 3){
             temp = Integer.parseInt(args[2]);
             if(temp > 60 || temp < 0)
-                throw new InvalidFormatException("Неверное указание колличества секунд");
+                throw new IllegalArgumentException("Неверное указание колличества секунд");
             second = temp;
         }
     }

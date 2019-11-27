@@ -1,59 +1,58 @@
 package com.krinroman.vkbot.parse.pdf.schedule;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 
 public class Date {
     private int day;
     private int month;
     private int year;
 
-    public Date(int day, int month, int year) throws InvalidArgumentException {
+    public Date(int day, int month, int year) throws IllegalArgumentException {
         if(day < 0)
-            throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+            throw new IllegalArgumentException("Неверное указание дня");
         if(month > 12 || month < 0)
-            throw new InvalidArgumentException(new String[]{"Неверное указание месяца"});
+            throw new IllegalArgumentException("Неверное указание месяца");
         if(year < 0)
-            throw new InvalidArgumentException(new String[]{"Неверное указание года"});
+            throw new IllegalArgumentException("Неверное указание года");
         if(month == 2) {
             if (year % 4 == 0) {
                 if (year % 100 == 0) {
                     if (year % 400 == 0) {
                         if (day > 29)
-                            throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                            throw new IllegalArgumentException("Неверное указание дня");
                     } else {
                         if (day > 28)
-                            throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                            throw new IllegalArgumentException("Неверное указание дня");
                     }
                 } else {
                     if (day > 29)
-                        throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                        throw new IllegalArgumentException("Неверное указание дня");
                 }
             }
             else{
                 if (day > 28)
-                    throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                    throw new IllegalArgumentException("Неверное указание дня");
             }
         }
 
         if(month <= 7 && month != 2){
             if(month % 2 == 0){
                 if(day > 30)
-                    throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                    throw new IllegalArgumentException("Неверное указание дня");
             }
             else{
                 if(day > 31)
-                    throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                    throw new IllegalArgumentException("Неверное указание дня");
             }
         }
 
         if(month > 7){
             if(month % 2 == 0){
                 if(day > 31)
-                    throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                    throw new IllegalArgumentException("Неверное указание дня");
             }
             else{
                 if(day > 30)
-                    throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                    throw new IllegalArgumentException("Неверное указание дня");
             }
         }
 
@@ -62,64 +61,64 @@ public class Date {
         this.year = year;
     }
 
-    public Date(String string, String separator) throws InvalidArgumentException {
+    public Date(String string, String separator) throws IllegalArgumentException {
         if(separator.length() == 0)
-            throw new InvalidArgumentException(new String[]{"Разделитель не может быть пустой"});
+            throw new IllegalArgumentException("Разделитель не может быть пустой");
         string = string.replace(separator,"-");
         String[] args = string.split("-");
         if(args.length != 3)
-            throw new InvalidArgumentException(new String[]{"Неверный формат строки"});
+            throw new IllegalArgumentException("Неверный формат строки");
         int dayTemp = Integer.parseInt(args[0]);
         int monthTemp = Integer.parseInt(args[1]);
         int yearTemp = Integer.parseInt(args[2]);
         if(yearTemp < 100) yearTemp += 2000;
 
         if(dayTemp < 0)
-            throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+            throw new IllegalArgumentException("Неверное указание дня");
         if(monthTemp > 12 || monthTemp < 0)
-            throw new InvalidArgumentException(new String[]{"Неверное указание месяца"});
+            throw new IllegalArgumentException("Неверное указание месяца");
         if(yearTemp < 0)
-            throw new InvalidArgumentException(new String[]{"Неверное указание года"});
+            throw new IllegalArgumentException("Неверное указание года");
         if(monthTemp == 2) {
             if (yearTemp % 4 == 0) {
                 if (yearTemp % 100 == 0) {
                     if (yearTemp % 400 == 0) {
                         if (dayTemp > 29)
-                            throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                            throw new IllegalArgumentException("Неверное указание дня");
                     } else {
                         if (dayTemp > 28)
-                            throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                            throw new IllegalArgumentException("Неверное указание дня");
                     }
                 } else {
                     if (dayTemp > 29)
-                        throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                        throw new IllegalArgumentException("Неверное указание дня");
                 }
             }
             else{
                 if (dayTemp > 28)
-                    throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                    throw new IllegalArgumentException("Неверное указание дня");
             }
         }
 
         if(monthTemp <= 7 && monthTemp != 2){
             if(monthTemp % 2 == 0){
                 if(dayTemp > 30)
-                    throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                    throw new IllegalArgumentException("Неверное указание дня");
             }
             else{
                 if(dayTemp > 31)
-                    throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                    throw new IllegalArgumentException("Неверное указание дня");
             }
         }
 
         if(monthTemp > 7){
             if(monthTemp % 2 == 0){
                 if(dayTemp > 31)
-                    throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                    throw new IllegalArgumentException("Неверное указание дня");
             }
             else{
                 if(dayTemp > 30)
-                    throw new InvalidArgumentException(new String[]{"Неверное указание дня"});
+                    throw new IllegalArgumentException("Неверное указание дня");
             }
         }
 
