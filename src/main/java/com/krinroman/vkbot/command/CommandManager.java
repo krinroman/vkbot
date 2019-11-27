@@ -2,6 +2,7 @@ package com.krinroman.vkbot.command;
 
 import com.krinroman.vkbot.command.commands.Help;
 import com.krinroman.vkbot.command.commands.Image;
+import com.krinroman.vkbot.command.commands.Schedule;
 import com.krinroman.vkbot.command.commands.Weather;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class CommandManager {
         commandsList.add("weather");
         commandsList.add("image");
         commandsList.add("help");
+        commandsList.add("schedule");
     }
 
     public static List<String> getCommandsList() { return commandsList; }
@@ -23,6 +25,7 @@ public class CommandManager {
         commands.add(new Weather("weather"));
         commands.add(new Image("image"));
         commands.add(new Help("help"));
+        commands.add(new Schedule("schedule"));
         return commands;
     }
 }

@@ -14,8 +14,6 @@ public class Weather extends Command {
 
     @Override
     public void exec(int peerId, String message) {
-
-
         new VKManager().sendMessage(getWeather(), peerId);
     }
 
