@@ -29,11 +29,13 @@ public class Schedule {
             stringBuilder.append(countWeek + " неделя\n");
             Day[] days = week.getDays();
             for(Day day:days){
-                stringBuilder.append(day.getWeekDay().getName() + " " + day.getDate().toString() + "\n");
                 List<Lesson> lessons = day.getLessons();
+                if(!lessons.isEmpty())
+                    stringBuilder.append(day.getWeekDay().getName() + " " + day.getDate().toString() + "\n");
                 for(Lesson lesson:lessons){
                     stringBuilder.append(lesson.toString() + "\n");
                 }
+                if(!lessons.isEmpty())
                 stringBuilder.append("\n");
             }
             stringBuilder.append("\n\n");
