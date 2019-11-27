@@ -13,6 +13,7 @@ import java.util.List;
 
 public class MyPDFParser {
 
+
     public static StringBuilder ParseToText(String fileName) throws IOException {
         PdfReader reader = new PdfReader(fileName);
         StringBuilder stringBuilder = new StringBuilder();

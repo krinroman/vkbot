@@ -1,6 +1,7 @@
 package com.krinroman.vkbot.parse.pdf.schedule;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /*using Class Time in package com.krinroman.vkbot.parse.pdf.schedule.Time*/
 
@@ -22,7 +23,7 @@ public enum LessonTime {
         try {
             this.begin = new Time(timeBegin, ":");
             this.end = new Time(timeEnd, ":");
-        } catch (InvalidArgumentException e) {
+        } catch (InvalidFormatException e) {
             e.printStackTrace();
         }
         this.id = id;
