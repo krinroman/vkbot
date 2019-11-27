@@ -23,6 +23,9 @@ public class CommandDeterminate {
             case "помощь":
             case "что ты умеешь":
                 return "help";
+            case "расписание":
+            case "покажи рассписание":
+                return "schedule";
             default:
                 return null;
         }

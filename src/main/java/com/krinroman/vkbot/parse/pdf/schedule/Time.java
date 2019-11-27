@@ -57,10 +57,27 @@ public class Time {
         return second;
     }
 
+    public String toString(String separator){
+        String stringHour = Integer.toString(hour);
+        String stringMinute = Integer.toString(minute);
+        String stringSecond = Integer.toString(second);
+        if(hour < 10) stringHour = "0" + stringHour;
+        if(minute < 10) stringMinute = "0" + stringMinute;
+        if(second < 10) stringSecond = "0" + stringSecond;
+        if(second == 0)return stringHour + separator + stringMinute;
+        return stringHour + separator + stringMinute + separator + stringSecond;
+    }
+
     @Override
     public String toString() {
-        if(second == 0)return hour + ":" + minute;
-        return hour + ":" + minute + ":" + second;
+        String stringHour = Integer.toString(hour);
+        String stringMinute = Integer.toString(minute);
+        String stringSecond = Integer.toString(second);
+        if(hour < 10) stringHour = "0" + stringHour;
+        if(minute < 10) stringMinute = "0" + stringMinute;
+        if(second < 10) stringSecond = "0" + stringSecond;
+        if(second == 0)return stringHour + ":" + stringMinute;
+        return stringHour + ":" + stringMinute + ":" + stringSecond;
     }
 
     @Override

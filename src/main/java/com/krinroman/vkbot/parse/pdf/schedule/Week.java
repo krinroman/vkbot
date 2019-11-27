@@ -1,14 +1,20 @@
 package com.krinroman.vkbot.parse.pdf.schedule;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Week {
     private int id;
-    private List<Day> days = new ArrayList<>(7);
+    private Day [] days;
 
-    public Week Parse(String string){
+    public Week(int id, Day[] days) {
+        this.id = id;
+        this.days = days;
+    }
 
-        return new Week();
+    public int getId() {
+        return id;
+    }
+
+    public Day[] getDays() {
+        return days;
     }
 }
