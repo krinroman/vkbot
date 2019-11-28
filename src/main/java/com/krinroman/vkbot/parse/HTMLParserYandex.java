@@ -21,11 +21,11 @@ import java.net.URLConnection;
 import java.util.Random;
 import java.util.Scanner;
 
-public class HTMLParser {
+public class HTMLParserYandex {
 
     private Document doc;
 
-    public HTMLParser(String url) throws IOException {
+    public HTMLParserYandex(String url) throws IOException {
         doc = Jsoup.connect(url).get();
     }
 

@@ -1,14 +1,12 @@
 package com.krinroman.vkbot.command.commands;
 
 import com.krinroman.vkbot.command.Command;
-import com.krinroman.vkbot.parse.HTMLParser;
+import com.krinroman.vkbot.parse.HTMLParserYandex;
 import com.krinroman.vkbot.vk.VKManager;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 public class Image extends Command {
 
@@ -31,7 +29,7 @@ public class Image extends Command {
 
 
             new VKManager().sendImage(answer,
-                    HTMLParser.getUrlImageRandomYandex(text), peerId);
+                    HTMLParserYandex.getUrlImageRandomYandex(text), peerId);
         } catch (ApiException | ClientException | IOException e) {
             e.printStackTrace();
             new VKManager().sendMessage("Не удалось отправить изображение",peerId);
