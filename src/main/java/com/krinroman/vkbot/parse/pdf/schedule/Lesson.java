@@ -6,9 +6,9 @@ public class Lesson {
     private String teacher;
     private String type;
     private int housing;
-    private int audience;
+    private String audience;
 
-    public Lesson(int timeId, String name, String type, String teacher, int housing, int audience) {
+    public Lesson(int timeId, String name, String type, String teacher, int housing, String audience) {
         this.timeId = timeId;
         this.name = name;
         this.teacher = teacher;
@@ -52,7 +52,7 @@ public class Lesson {
         stringBuilder.delete(index,indexEnd);
         String [] strings = stringBuilder.substring(index).split("-");
         int housing = Integer.parseInt(strings[0]);
-        int audience = Integer.parseInt(strings[1]);
+        String audience = strings[1];
         stringBuilder.delete(index-1, stringBuilder.length());
         String name = stringBuilder.toString().trim();
         return new Lesson(timeId,name,type,teacher,housing,audience);
@@ -101,7 +101,7 @@ public class Lesson {
         return housing;
     }
 
-    public int getAudience() {
+    public String getAudience() {
         return audience;
     }
 }

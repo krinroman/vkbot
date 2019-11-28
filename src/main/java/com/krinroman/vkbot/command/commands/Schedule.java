@@ -32,7 +32,7 @@ public class Schedule extends Command {
             com.krinroman.vkbot.parse.pdf.schedule.Schedule schedule = MyPDFParser.ParseSchedule(pdfUrl);
             new VKManager().sendMessage(schedule.toString(),peerId);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             new VKManager().sendMessage("Не удалось просмотреть рассписание или открыть файл с ним",peerId);
         }
 
