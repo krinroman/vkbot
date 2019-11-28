@@ -33,6 +33,7 @@ public class Schedule extends Command {
             new VKManager().sendMessage(schedule.toString(),peerId);
 
         } catch (Exception e) {
+            e.printStackTrace();
             new VKManager().sendMessage("Не удалось просмотреть рассписание или открыть файл с ним",peerId);
         }
 
