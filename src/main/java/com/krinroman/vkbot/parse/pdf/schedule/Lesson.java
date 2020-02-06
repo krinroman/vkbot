@@ -18,6 +18,7 @@ public class Lesson {
     }
 
     public static Lesson Parse(String string){
+        System.out.println(string);
         if(string.length() == 12) return null;
         string = BringingToNormalString(string);
         StringBuilder stringBuilder = new StringBuilder(string);
