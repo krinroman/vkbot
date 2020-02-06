@@ -24,11 +24,13 @@ public class HTMLParserVyatsu {
         Elements elements = doc.select("div.grpPeriod");
         Element myElement = null;
 
+        int i = 0;
         for(Element element:elements){
             if(element.text().equals(groupName)){
                 myElement = element;
-                break;
+                i++;
             }
+            if(i == 2) break;
         }
         String idGroup;
         if(myElement != null)idGroup = myElement.attr("data-grp_period_id");
