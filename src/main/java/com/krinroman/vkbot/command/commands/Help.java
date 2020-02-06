@@ -11,8 +11,6 @@ public class Help extends Command {
     @Override
     public void exec(int peerId, String message) {
         new VKManager().sendMessage("" +
-                        "Показывать погоду: команда \"weather\"\n" +
-                        "Спроси: Какая сегодня погода?\n\n" +
                         "Могу отправить случайное изображение: команда \"image [запрос]\"\n" +
                         "Напиши \"изображение\" или \"картинка\" и после этого запрос\n\n"+
                         "Могу показать какое у тебя расписание: команда \"schedule\"\nИли просто напиши \"расписание.\""+
