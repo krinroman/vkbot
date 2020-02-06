@@ -75,9 +75,11 @@ public class Lesson {
     public String toString() {
         String returnString = "";
         returnString += LessonTime.valueOf(timeId) + " " + name + " ";
-        if(type.equals("Лекция")) returnString += "(Л) ";
-        else if(type.equals("Лабораторная работа")) returnString += "(П) ";
-        else if(type != null) returnString += type + " ";
+        if(type != null) {
+            if (type.equals("Лекция")) returnString += "(Л) ";
+            else if (type.equals("Лабораторная работа")) returnString += "(П) ";
+            else returnString += type + " ";
+        }
         if(teacher != null) returnString += teacher + " ";
         if(housing != -1 && audience != null) returnString += housing + "-" + audience;;
         return returnString;
