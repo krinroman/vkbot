@@ -43,7 +43,7 @@ public class Lesson {
                 }
             }
         }
-        if(index == -1) return new Lesson(timeId, string, null, null, -1, null);
+        if(index == -1) return new Lesson(timeId, stringBuilder.toString(), null, null, -1, null);
         int indexEnd = index;
         while(indexEnd < stringBuilder.length()){
             if(Character.isDigit(stringBuilder.charAt(indexEnd))) break;
