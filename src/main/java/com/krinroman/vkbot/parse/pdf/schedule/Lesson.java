@@ -18,7 +18,6 @@ public class Lesson {
     }
 
     public static Lesson Parse(String string){
-        System.out.println(string);
         if(string.length() == 12) return null;
         string = BringingToNormalString(string);
         StringBuilder stringBuilder = new StringBuilder(string);
@@ -44,6 +43,7 @@ public class Lesson {
                 }
             }
         }
+        if(index == -1) return new Lesson(timeId, string, null, null, -1, null);
         int indexEnd = index;
         while(indexEnd < stringBuilder.length()){
             if(Character.isDigit(stringBuilder.charAt(indexEnd))) break;
@@ -77,8 +77,9 @@ public class Lesson {
         returnString += LessonTime.valueOf(timeId) + " " + name + " ";
         if(type.equals("Лекция")) returnString += "(Л) ";
         else if(type.equals("Лабораторная работа")) returnString += "(П) ";
-        else returnString += type + " ";
-        returnString += teacher + " " + housing + "-" + audience;
+        else if(type != null) returnString += type + " ";
+        if(teacher != null) returnString += teacher + " ";
+        if(housing != -1 && audience != null) returnString += housing + "-" + audience;;
         return returnString;
     }
 
