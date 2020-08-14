@@ -1,0 +1,54 @@
+{
+    "info": {
+        "website": "5cdd1daed4423",
+        "block": "1kawmjvqe8dbl",
+        "ratio_exchange": 70,
+        "ratio_commerce": 30 
+    },
+    "teaser": {
+        "reference": "",
+        "title": "",
+        "image_url": "",
+        "redirect_url": "",
+        "click_url": "",
+        "impression_url": ""
+    },
+    "teasers_commerce": [
+        {
+            "reference": "",
+            "title": "",
+            "image_url": "",
+            "redirect_url": "",
+            "click_url": "",
+            "impression_url": ""
+        }
+    ],
+    "teasers_garant": [
+        {
+            "reference": "",
+            "title": "",
+            "image_url": "",
+            "redirect_url": "",
+            "click_url": "",
+            "impression_url": ""
+        }
+    ],
+    "teasers_exchange": {
+        "5d2c96406582a": {
+            "reference": "5cdd1ead8c6ec",
+            "clicked": 430,
+            "returned": 300,
+            "teasers": [
+                {
+                    "reference": "",
+                    "title": "",
+                    "image_url": "",
+                    "redirect_url": "",
+                    "click_url": "",
+                    "impression_url": ""
+                }
+                
+            ]
+        }
+    }
+}
